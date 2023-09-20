@@ -19,7 +19,7 @@ export class Person {
       payAmount = amount - this.amountToPay;
     }
     this.payActions.set(person, {
-      amount: payAmount,
+      amount: parseAmount(payAmount),
     });
     this.amountToPay -= payAmount;
     return payAmount;
@@ -28,11 +28,15 @@ export class Person {
   receive(amount: number, person: string) {
     this.amountToPay += amount;
     this.receiveActions.set(person, {
-      amount,
+      amount: parseAmount(amount),
     });
   }
 
   getAmountToPay() {
     return Number(this.amountToPay.toFixed(2))
   }
+}
+
+function parseAmount(amount: number) {
+  return Number(amount.toFixed(2))
 }
